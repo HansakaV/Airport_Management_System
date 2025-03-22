@@ -17,9 +17,8 @@ public class Airplane implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID airplaneId;
-
     private String model;
     private String manufacturer;
     private int capacity;
-    private String status; // Active, Maintenance
+    private String status;
 }

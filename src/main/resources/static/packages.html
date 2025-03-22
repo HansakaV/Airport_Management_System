@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Information Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4e73df;
+            --sidebar-width: 250px;
+        }
+
+        body {
+            overflow-x: hidden;
+            background-color: #f8f9fa;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(to bottom, #343a40, #212529);
+            position: fixed;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .sidebar-brand {
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-brand a {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .sidebar-brand a span {
+            color: var(--primary);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu ul li {
+            padding: 0;
+            position: relative;
+        }
+
+        .sidebar-menu ul li a {
+            padding: 15px 25px;
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-menu ul li a:hover,
+        .sidebar-menu ul li.active a {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .sidebar-menu ul li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+
+        /* Card styles */
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .header-section {
+            background-color: #f8f9fa;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border: none;
+            padding: 10px 25px;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5ccc;
+        }
+
+        /* Make sure the file input is hidden but still accessible */
+        .custom-file-upload {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <a href="index.html">Admin<span>Panel</span></a>
+    </div>
+    <div class="sidebar-menu">
+        <ul>
+            <li>
+                <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="admin-users.html"><i class="fas fa-users"></i> User Management</a>
+            </li>
+            <li>
+                <a href="admin-bookings.html"><i class="fas fa-ticket-alt"></i> Bookings</a>
+            </li>
+            <li>
+                <a href="admin-flights.html"><i class="fas fa-plane"></i> Flight Schedule</a>
+            </li>
+            <li>
+                <a href="admin-email.html"><i class="fas fa-envelope"></i> Email Notifications</a>
+            </li>
+            <li class="active">
+                <a href="arplanes.html"><i class="fas fa-plane"></i> Packages Management</a>
+            </li>
+            <li>
+                <a href="admin-settings.html"><i class="fas fa-cog"></i> Settings</a>
+            </li>
+            <li>
+                <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 mb-4">
+                    <div class="card-body p-5">
+                        <div class="header-section py-4 px-3 mb-4">
+                            <h2 class="text-center">Package Information</h2>
+                            <p class="text-center text-muted">Enter the details of your new package</p>
+                        </div>
+
+                        <form>
+                            <div class="mb-4">
+                                <label for="packageId" class="form-label">Package ID</label>
+                                <input type="number" class="form-control form-control-lg" id="packageId" placeholder="Enter package ID" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="packageName" class="form-label">Package Name</label>
+                                <input type="text" class="form-control form-control-lg" id="packageName" placeholder="Enter package name" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="packageImage" class="form-label">Package Image</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control form-control-lg" id="packageImage" accept="image/*">
+                                    <label class="input-group-text" for="packageImage">Upload</label>
+                                </div>
+                                <div class="form-text">Select an image for the package</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="imagePath" class="form-label">Image Path</label>
+                                <input type="text" class="form-control form-control-lg" id="imagePath" placeholder="Image path will appear here" readonly>
+                                <div class="form-text">This field will automatically update when an image is selected</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="description" class="form-label">Package Description</label>
+                                <textarea class="form-control form-control-lg" id="description" rows="4" placeholder="Enter package description" required></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="price" class="form-label">Package Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control form-control-lg" id="price" placeholder="0.00" step="0.01" min="0" required>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+                                <button type="button" class="btn btn-outline-secondary btn-lg me-md-2">Cancel</button>
+                                <button type="button" id="saveBtn" class="btn btn-primary btn-lg">Save Package</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script to automatically set image path when an image is selected -->
+<script>
+    document.getElementById('packageImage').addEventListener('change', function() {
+        const fileInput = this;
+        if (fileInput.files && fileInput.files[0]) {
+            // Get the file name and create a fake path (browsers restrict access to the real path for security)
+            const fileName = fileInput.files[0].name;
+            // Set the image path to a standardized format
+            document.getElementById('imagePath').value = 'uploads/images/' + fileName;
+        }
+    });
+</script>
+
+<script>
+    $('#saveBtn').on('click',()=>{
+        const packageID = $('#packageId').val();
+        const name = $('#packageName').val();
+        const path = $('#imagePath').val();
+        const description = $('#description').val();
+        const price = $('#price').val();
+
+
+        const packageData = {
+            packageID: packageID,
+            name: name,
+            path: path,
+            description: description,
+            price: parseDouble(price)
+        };
+        console.log("weda weda",packageData)
+        $.ajax({
+            url: `http://localhost:8082/api/v1/package/save`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(packageData),
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem('jwt_token')
+            },
+            success: function (response) {
+                alert('Package added successfully');
+                console.log(response);
+            },
+            error: function (error) {
+                alert('Error adding flight');
+                console.log(error);
+            }
+        });
+
+
+
+    })
+</script>
+
+</body>
+</html>

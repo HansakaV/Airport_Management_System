@@ -31,11 +31,11 @@ $(document).ready(function() {
                     flight.status === 'Cancelled' ? 'danger' : 'secondary';
 
             var row = `<tr>
-                <td>${flight.flightNo}</td>
-                <td>${flight.route}</td>
-                <td>${flight.departure}</td>
-                <td>${flight.arrival}</td>
-                <td>${flight.days}</td>
+                <td>${flight.flightNumber}</td>
+                <td>${flight.aircraft}</td>
+                <td>${flight.arrivalTime}</td>
+                <td>${flight.departureTime}</td>
+                <td>${flight.operatingDays}</td>
                 <td><span class="badge bg-${statusClass}">${flight.status}</span></td>
                 <td>
                     <button class="btn btn-sm btn-primary edit-btn" data-id="${flight.id}">Edit</button>
@@ -59,9 +59,10 @@ $(document).ready(function() {
             console.log('Edit flight with ID:', flightId);
         });
 
-        // Delete button click handler
+
         $('.delete-btn').click(function() {
             var flightId = $(this).data('id');
+            console.log(flightId)
             if (confirm('Are you sure you want to delete this flight?')) {
                 deleteFlight(flightId);
             }
@@ -124,34 +125,6 @@ $(document).ready(function() {
     });
 });
 
-//buttons
-/*
-// Get references to your elements
-const addNewFlightBtn = document.getElementById('addNewFlightBtn');
-const addFlightModal = document.getElementById('addFlightModal');
-const modalCloseBtn = document.querySelector('.modal-close');
-
-// Function to open the modal
-function openAddModal() {
-    addFlightModal.style.display = 'block';
-}
-
-// Function to close the modal
-function closeAddModal() {
-    addFlightModal.style.display = 'none';
-}
-
-// Add event listeners
-addNewFlightBtn.addEventListener('click', openAddModal);
-modalCloseBtn.addEventListener('click', closeAddModal);
-
-// Close modal if clicked outside of modal content
-window.addEventListener('click', function(event) {
-    if (event.target === addFlightModal) {
-        closeAddModal();
-    }
-});*/
-
 
 // Get references to elements
 const addFlightModal = document.getElementById('addFlightModal');
@@ -171,45 +144,20 @@ function closeAddModal() {
     addFlightForm.reset(); // Reset the form when closing
 }
 
-// Function to collect form data
-function collectFormData() {
-    // Get all form fields
-    const flightNumber = document.getElementById('flightNumber').value;
-    const aircraft = document.getElementById('aircraft').value;
-    const origin = document.getElementById('origin').value;
-    const destination = document.getElementById('destination').value;
-    const departureTime = document.getElementById('departureTime').value;
-    const arrivalTime = document.getElementById('arrivalTime').value;
-    const status = document.getElementById('status').value;
-
-    // Get operating days
-    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-    const operatingDays = {};
-
-    days.forEach(day => {
-        operatingDays[day] = document.getElementById(day).checked;
-    });
-
-    // Return the form data as an object
-    return {
-        flightNumber,
-        aircraft,
-        origin,
-        destination,
-        departureTime,
-        arrivalTime,
-        operatingDays,
-        status
-    };
-}
-
-// Function to validate form data
-function validateForm() {
-    // Check if the form is valid using the built-in form validation
-    return addFlightForm.checkValidity();
-}
 $('#saveFlightBtn').on('click',() => {
     addFlightModal.style.display = 'block';
+    // Get operating days
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    let operatingDaysArray = [];
+
+    days.forEach(day => {
+        if (document.getElementById(day).checked) {
+            operatingDaysArray.push(day.charAt(0).toUpperCase() + day.slice(1));
+        }
+    });
+
+    // Join the selected days into a comma-separated string
+    const operatingDays = operatingDaysArray.join(',');
 
     const flightNumber = $('#flightNumber').val();
     const aircraft = $('#aircraft').val();
@@ -218,14 +166,7 @@ $('#saveFlightBtn').on('click',() => {
     const departureTime = $('#departureTime').val();
     const arrivalTime = $('#arrivalTime').val();
     const status = $('#status').val();
-    const day = "Monday";
 
-    const days = [];
-    $('.day-checkbox').each(function () {
-        if ($(this).is(':checked')) {
-            days.push($(this).attr('id'));
-        }
-    });
 
     $.ajax({
         url: `http://localhost:8082/api/v1/flight/save`,
@@ -239,11 +180,10 @@ $('#saveFlightBtn').on('click',() => {
             departureTime: departureTime,
             arrivalTime: arrivalTime,
             status: status,
-            days: day
+            operatingDays: operatingDays
         }),
         headers: {
             "Authorization": "Bearer " + localStorage.getItem('jwt_token')
-
         },
         success: function (response) {
             alert('Flight added successfully');
@@ -254,42 +194,6 @@ $('#saveFlightBtn').on('click',() => {
         }
     });
 });
-// Function to save flight using AJAX
-/*function saveFlight() {
-    // First validate the form
-    if (!validateForm()) {
-        alert('Please fill all required fields correctly.');
-        return;
-    }*/
-/*
-    // Collect form data
-    const flightData = collectFormData();
-
-    // Show loading state
-    saveFlightBtn.textContent = 'Saving...';
-    saveFlightBtn.disabled = true;
-    const token = localStorage.getItem('jwt_token');
-    console.log("token123",token)
-
-    console.log("data",flightData)
-    $.ajax({
-        url: 'http://localhost:8082/api/v1/flight/save',
-        type: 'POST',
-        contentType: 'application/json',
-        headers: {
-            "Authorization": "Bearer " + token
-        },
-        data: JSON.stringify(flightData),
-        success: function(response) {
-            alert('Save Flight successfully!');
-
-        },
-        error: function(xhr, status, error) {
-            alert('Error adding Flight: ' + error);
-        }
-    });*/
-// }
-
 
 // Add event listeners
 document.getElementById('addNewFlightBtn').addEventListener('click', openAddModal);
@@ -304,16 +208,3 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// Optional: Function to refresh flights list after adding a new flight
-function refreshFlightsList() {
-    // Fetch and display updated flights list
-    fetch('http://localhost:8082/api/v1/flight/getAll')
-        .then(response => response.json())
-        .then(data => {
-            // Update your flights table or list with the new data
-            // Example: updateFlightsTable(data);
-        })
-        .catch(error => {
-            console.error('Error fetching flights:', error);
-        });
-}

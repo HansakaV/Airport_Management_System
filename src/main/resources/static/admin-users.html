@@ -635,9 +635,12 @@
     function loadAllUsers() {
         $.ajax({
             url: 'http://localhost:8082/api/v1/user/getAll',
-            type: 'GET',
-            dataType: 'json',
+            type: 'POST',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("jwt_token")
+            },
             success: function(response) {
+                alert("awaaa hutto")
                 console.log(response.data)
                 console.log("test",response.data)
                     populateUserTable(response.data);

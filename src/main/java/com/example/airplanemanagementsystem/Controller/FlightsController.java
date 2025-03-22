@@ -36,7 +36,7 @@ public class FlightsController {
 
     @PostMapping("save")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<ResponseDTO> saveFlights(@RequestBody @Valid FlightDTO flightDTO){
+    public ResponseEntity<ResponseDTO> saveFlights(@Valid @RequestBody FlightDTO flightDTO){
         try {
             System.out.println("blaaa"+flightDTO);
             int result = flightService.SaveFlights(flightDTO);

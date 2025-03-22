@@ -9,13 +9,14 @@ import com.example.airplanemanagementsystem.Util.JwtUtil;
 import com.example.airplanemanagementsystem.Util.VarList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("api/v1/user")
-@CrossOrigin(origins = "*")
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
@@ -26,7 +27,8 @@ public class UserController {
         this.jwtUtil = jwtUtil;
     }
 
-    @GetMapping("/getAll")
+    @PostMapping("/getAll")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ResponseDTO> getAllUsers() {
         try {
             List<UserDTO> userDTOS = userService.getAllUsers();
