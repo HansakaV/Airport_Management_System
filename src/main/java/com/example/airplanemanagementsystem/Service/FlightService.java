@@ -8,4 +8,6 @@ public interface FlightService {
     int SaveFlights(FlightDTO flightDTO);
     List<FlightDTO> getAllFlights();
     int DeleteFlight(String Id);
+    int updateFlights(FlightDTO flightDTO);
+    int SearchFlight(String flightId);
 }

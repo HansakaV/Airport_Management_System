@@ -4,21 +4,22 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "packages")
+@Table(name = "ticket_bookings")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Packages {
+public class Ticket_Bookings implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID packageId;
-
-    private String packageName;
-    private String imagePath;
-    private String description;
+    private UUID bookingID;
+    private String type;
     private double price;
 }

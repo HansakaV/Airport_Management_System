@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,16 +30,35 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public List<PackageDTO> getAllPackages() {
-        return null;
+        List<Packages> packagesList = packageRepository.findAll();
+        return packagesList.stream()
+                .map(flight -> modelMapper.map(flight, PackageDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public int DeletePackage(String Id) {
-        return 0;
+    public int DeletePackage(UUID Id) {
+        if (packageRepository.existsById(Id)) {
+            packageRepository.deleteById(Id);
+            return VarList.Deleted;
+        } else {
+            return VarList.Not_Found;
+        }
     }
 
     @Override
     public int UpdatePackage(PackageDTO packageDTO) {
-        return 0;
+        if (packageRepository.existsById(packageDTO.getPackageId())) {
+            packageRepository.save(modelMapper.map(packageDTO, Packages.class));
+            return VarList.OK;
+        } else {
+            return VarList.Not_Found;
+        }
+    }
+
+    @Override
+    public int SearchPackage(UUID packageId) {
+        Optional<Packages> packages = packageRepository.findById(packageId);
+        return packages.isPresent() ? VarList.Found : VarList.Not_Found;
     }
 }

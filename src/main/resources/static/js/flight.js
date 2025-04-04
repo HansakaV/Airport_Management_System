@@ -199,7 +199,7 @@ $('#saveFlightBtn').on('click',() => {
 document.getElementById('addNewFlightBtn').addEventListener('click', openAddModal);
 modalCloseBtn.addEventListener('click', closeAddModal);
 modalCloseBtnFooter.addEventListener('click', closeAddModal);
-saveFlightBtn.addEventListener('click', saveFlight);
+// saveFlightBtn.addEventListener('click', saveFlight);
 
 // Close modal if clicked outside of modal content
 window.addEventListener('click', function(event) {

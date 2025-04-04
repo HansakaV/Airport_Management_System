@@ -127,11 +127,11 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="sidebar-brand">
-        <a href="index.html">Admin<span>Panel</span></a>
+        <a href="admin-dashboard.html">SriLankan<span>Airlines</span></a>
     </div>
     <div class="sidebar-menu">
         <ul>
-            <li>
+            <li class="active">
                 <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
             </li>
             <li>
@@ -143,11 +143,14 @@
             <li>
                 <a href="admin-flights.html"><i class="fas fa-plane"></i> Flight Schedule</a>
             </li>
+            <li >
+                <a href="packages.html"><i class="fas fa-plane"></i>Package Management</a>
+            </li>
             <li>
                 <a href="admin-email.html"><i class="fas fa-envelope"></i> Email Notifications</a>
             </li>
-            <li class="active">
-                <a href="arplanes.html"><i class="fas fa-plane"></i> Packages Management</a>
+            <li >
+                <a href="arplanes.html"><i class="fas fa-plane"></i> Airplanes</a>
             </li>
             <li>
                 <a href="admin-settings.html"><i class="fas fa-cog"></i> Settings</a>
@@ -224,6 +227,7 @@
 
 <!-- Bootstrap JS Bundle with Popper -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.7.1.min.js"></script>
 
 <!-- Script to automatically set image path when an image is selected -->
 <script>
@@ -252,7 +256,7 @@
             name: name,
             path: path,
             description: description,
-            price: parseDouble(price)
+            price: parseFloat(price)
         };
         console.log("weda weda",packageData)
         $.ajax({
@@ -268,7 +272,7 @@
                 console.log(response);
             },
             error: function (error) {
-                alert('Error adding flight');
+                alert('Error adding Package');
                 console.log(error);
             }
         });

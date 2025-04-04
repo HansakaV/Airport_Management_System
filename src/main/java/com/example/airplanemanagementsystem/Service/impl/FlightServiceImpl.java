@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,8 +43,31 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public int DeleteFlight(String Id) {
-        return 0;
+        if (flightRepository.existsById(Id)) {
+            flightRepository.deleteById(Id);
+            return VarList.Deleted;
+        } else {
+            return VarList.Not_Found;
+        }
     }
+
+    @Override
+    public int updateFlights(FlightDTO flightDTO) {
+        if (flightRepository.existsById(flightDTO.getFlightNumber())) {
+            flightRepository.save(modelMapper.map(flightDTO, Flight.class));
+            return VarList.OK;
+        } else {
+            return VarList.Not_Found;
+        }
+    }
+
+    @Override
+    public int SearchFlight(String flightId) {
+        Optional<Flight> flight = flightRepository.findById(flightId);
+        return flight.isPresent() ? VarList.Found : VarList.Not_Found;
+    }
+
+
 
 
 }

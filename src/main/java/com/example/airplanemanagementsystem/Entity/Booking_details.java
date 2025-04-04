@@ -23,6 +23,14 @@ public class Booking_details implements Serializable {
     private Bookings booking;
 
     private String passengerName;
-    private String passportNumber;
+
+    // Changed field name to follow Java naming convention
+    private String packageName;
+
     private double ticketPrice;
+
+    // Add passenger information
+    private String passengerEmail;
+    private String passengerPhone;
+    private String seatNumber;
 }

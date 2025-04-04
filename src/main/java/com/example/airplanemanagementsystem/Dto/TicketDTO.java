@@ -9,10 +9,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AirplaneDTO {
-    private UUID airplaneId;
-    private String model;
-    private String manufacturer;
-    private int capacity;
-    private String status;
+public class TicketDTO {
+    private UUID ticketId;
+    private String flightNumber;
+    private String destination;
+    private String type;
+    private double price;
+    private int SeatNo;
 }

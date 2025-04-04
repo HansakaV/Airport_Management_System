@@ -25,6 +25,7 @@ public class Payment implements Serializable {
 
     private double amountPaid;
     private LocalDateTime paymentDate;
-    private String paymentMethod; // Credit Card, PayPal, etc.
-    private String transactionStatus; // Success, Failed
+    private String paymentMethod;
+    private String transactionStatus;
+    private String transactionReference;
 }

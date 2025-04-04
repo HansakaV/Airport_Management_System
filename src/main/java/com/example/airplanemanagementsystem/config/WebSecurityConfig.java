@@ -62,6 +62,7 @@ public class WebSecurityConfig {
                                 "/api/v1/flight/getAll",
                                 "/api/v1/flight/save",
                                 "/api/v1/plane/save",
+                                "api/v1/package/save",
                                 "/api/v1/flight/delete",
                                 "/api/v1/user/getAll",
                                 "/api/v1/auth/refreshToken",
