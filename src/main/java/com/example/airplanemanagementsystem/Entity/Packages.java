@@ -15,8 +15,8 @@ import java.util.UUID;
 public class Packages {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID packageId;
-
+    private UUID id;
+    private String packageCode;
     private String packageName;
     private String imagePath;
     private String description;

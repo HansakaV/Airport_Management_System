@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface PackageRepository extends JpaRepository<Packages,Integer> {
+
+public interface PackageRepository extends JpaRepository<Packages, UUID> {
 
     Optional<Packages> findById(UUID packageId);
 

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class PackageDTO {
-    private int PackageId;
     private String packageName;
     private String imagePath;
     private String description;

@@ -37,23 +37,21 @@ public class PackageServiceImpl implements PackageService {
     }
 
     @Override
-    public int DeletePackage(UUID Id) {
-        if (packageRepository.existsById(Id)) {
-            packageRepository.deleteById(Id);
+    public int DeletePackage(UUID code) {
+        if (packageRepository.existsById(code)) {
+            packageRepository.deleteById(code);
             return VarList.Deleted;
         } else {
             return VarList.Not_Found;
         }
     }
 
+
+
     @Override
     public int UpdatePackage(PackageDTO packageDTO) {
-        if (packageRepository.existsById(packageDTO.getPackageId())) {
             packageRepository.save(modelMapper.map(packageDTO, Packages.class));
             return VarList.OK;
-        } else {
-            return VarList.Not_Found;
-        }
     }
 
     @Override

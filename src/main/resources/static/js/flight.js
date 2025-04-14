@@ -32,7 +32,8 @@ $(document).ready(function() {
 
             var row = `<tr>
                 <td>${flight.flightNumber}</td>
-                <td>${flight.aircraft}</td>
+                <td>${flight.origin
+            +"-"+flight.destination}</td>
                 <td>${flight.arrivalTime}</td>
                 <td>${flight.departureTime}</td>
                 <td>${flight.operatingDays}</td>

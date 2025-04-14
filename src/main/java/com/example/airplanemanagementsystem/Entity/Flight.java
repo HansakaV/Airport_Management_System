@@ -21,7 +21,6 @@ public class Flight {
     @ManyToOne
     @JoinColumn(name = "airplane_id")
     private Airplane airplane;
-
     private String arrivalTime;
     private String departureTime;
     private String destination;

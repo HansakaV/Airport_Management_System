@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Airplane implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID airplaneId;
+    private UUID id;
     private String model;
     private String manufacturer;
     private int capacity;

@@ -9,5 +9,5 @@ public interface AirplaneRepository extends JpaRepository<Airplane,Integer> {
 
     boolean existsById(UUID airplaneId);
 
-    void deleteById(UUID id);
+    void deleteById(UUID airplaneId);
 }

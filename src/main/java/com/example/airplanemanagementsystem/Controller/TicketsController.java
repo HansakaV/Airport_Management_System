@@ -18,7 +18,5 @@ public class TicketsController {
         this.ticketService = ticketService;
 
     }
-    public ResponseEntity<ResponseDTO> getAllTickets() {
-        return new ResponseEntity<>();
-    }
+
 }
