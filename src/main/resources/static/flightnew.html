@@ -613,6 +613,10 @@
                         <input type="date" class="form-control" id="bookingDate" required>
                     </div>
                     <div class="mb-3">
+                        <label for="pasName" class="form-label">Passenger Name</label>
+                        <input type="text" class="form-control" id="pasName" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="flightClass" class="form-label">Class</label>
                         <select class="form-select" id="flightClass" required>
                             <option value="Economy">Economy</option>
@@ -624,7 +628,7 @@
                         <label for="paymentMethod" class="form-label">Payment Method</label>
                         <select class="form-select" id="paymentMethod" required>
                             <option value="Card">Credit/Debit Card</option>
-                            <option value="Paypal">PayPal</option>
+                            <option value="BankTransfer">BankTransfer</option>
                             <option value="Cash">Cash</option>
                         </select>
                     </div>
@@ -727,6 +731,7 @@
 <script src="js/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="js/ticketBooking.js"></script>
+<script src="js/bookingpart.js"></script>
 <script>
     $(document).ready(function() {
         // Show loading spinner

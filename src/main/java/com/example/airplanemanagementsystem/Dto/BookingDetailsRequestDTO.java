@@ -9,11 +9,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BookingDetailsDTO {
-    private Long id;
+public class BookingDetailsRequestDTO {
     private Long bookingId;
     private BigDecimal price;
     private BigDecimal tax;
-    private BigDecimal totalAmount;
-    private String paymentStatus;
 }

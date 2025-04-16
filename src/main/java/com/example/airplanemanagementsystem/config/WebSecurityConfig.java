@@ -66,6 +66,7 @@ public class WebSecurityConfig {
                                 "api/v1/package/save",
                                 "/api/v1/flight/delete",
                                 "api/v1/package/update",
+                                "api/v1/bookings/create",
                                 "api/v1/package/delete{id}",
                                 "/api/v1/user/getAll",
                                 "/api/v1/auth/refreshToken",

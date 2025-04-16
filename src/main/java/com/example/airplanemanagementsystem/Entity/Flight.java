@@ -28,8 +28,8 @@ public class Flight {
     private String origin;
     private String status;
 
-    @OneToMany(mappedBy = "flight")
-    private Set<Bookings> bookings;
+    /*@OneToMany(mappedBy = "flight")
+    private Set<Booking> bookings;*/
 
 
 
