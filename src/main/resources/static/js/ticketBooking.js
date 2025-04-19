@@ -15,27 +15,3 @@ $(document).on('click', '.edit-btn', function () {
 
     $('#bookingModal').modal('show');
 });
-
-// Handle form submission
-$('#bookingForm').on('submit', function (e) {
-    e.preventDefault();
-
-    const booking = {
-        flightId: $(this).data('flight-id'),
-        bookingDate: $('#bookingDate').val(),
-        flightClass: $('#flightClass').val(),
-        paymentMethod: $('#paymentMethod').val(),
-        seatNumber: $('#seatNumber').val()
-    };
-
-    console.log('Booking data:', booking);
-
-    // TODO: Add AJAX POST request here to send booking to backend
-    // $.post('/api/booking', booking, function(response) {
-    //     alert('Booking successful!');
-    //     $('#bookingModal').modal('hide');
-    // });
-
-    alert('Booking confirmed!');
-    $('#bookingModal').modal('hide');
-});

@@ -39,6 +39,9 @@ public class Booking {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    @Column(name = "description")
+    private String description;
+
     @PrePersist
     public void prePersist() {
         createdAt = LocalDate.now();

@@ -39,6 +39,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setPassengerName(bookingRequestDTO.getPassengerName());
         booking.setFlightClass(bookingRequestDTO.getFlightClass());
         booking.setPaymentMethod(bookingRequestDTO.getPaymentMethod());
+        booking.setDescription(bookingRequestDTO.getPackageName());
 
         // Generate seat number if not provided
         String seatNumber = bookingRequestDTO.getSeatNumber();
@@ -57,13 +58,13 @@ public class BookingServiceImpl implements BookingService {
         BigDecimal basePrice;
         switch (savedBooking.getFlightClass()) {
             case "First":
-                basePrice = new BigDecimal("1000.00");
+                basePrice = new BigDecimal("10000.00");
                 break;
             case "Business":
-                basePrice = new BigDecimal("500.00");
+                basePrice = new BigDecimal("5000.00");
                 break;
             default: // Economy
-                basePrice = new BigDecimal("200.00");
+                basePrice = new BigDecimal("3000.00");
                 break;
         }
 

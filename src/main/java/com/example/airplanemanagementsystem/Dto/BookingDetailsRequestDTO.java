@@ -13,4 +13,5 @@ public class BookingDetailsRequestDTO {
     private Long bookingId;
     private BigDecimal price;
     private BigDecimal tax;
+    private String packageName;
 }

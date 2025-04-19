@@ -41,7 +41,7 @@ public class BookingController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    @GetMapping
+    @GetMapping("GetAll")
     public ResponseEntity<List<BookingDTO>> getAllBookings() {
         List<BookingDTO> bookings = bookingService.getAllBookings();
         return ResponseEntity.ok(bookings);

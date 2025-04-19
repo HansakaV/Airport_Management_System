@@ -15,4 +15,5 @@ public class BookingRequestDTO {
     private String flightClass;
     private String paymentMethod;
     private String seatNumber;
+    private String packageName;
 }

@@ -1,31 +1,9 @@
 // Booking AJAX functionality
 $(document).ready(function() {
-    // Generate seat number when booking modal is opened
-   /* $('#bookingModal').on('shown.bs.modal', function () {
-        generateSeatNumber();
-    });*/
-
-    // Handle booking form submission
     $('#bookingForm').submit(function (event) {
         event.preventDefault();
         createBooking();
     });
-
-    // Function to generate a seat number
-    function generateSeatNumber() {
-        $.ajax({
-            url: '/api/bookings/generate-seat',
-            type: 'GET',
-            contentType: 'application/json',
-            success: function (response) {
-                $('#seatNumber').val(response.seatNumber);
-            },
-            error: function (xhr, status, error) {
-                console.error('Error generating seat number:', error);
-                alert('Failed to generate seat number. Please try again.');
-            }
-        });
-    }
 
     // Function to create a booking
     function createBooking() {
@@ -36,8 +14,10 @@ $(document).ready(function() {
             passengerName: $('#pasName').val(),
             flightClass: $('#flightClass').val(),
             paymentMethod: $('#paymentMethod').val(),
-            seatNumber: $('#seatNumber').val()
+            seatNumber: $('#seatNumber').val(),
+            packageName: $('#packageNameHidden').val(),
         };
+        console.log('Booking data:', bookingData);
 
         $.ajax({
             url: 'http://localhost:8082/api/v1/bookings/create',
@@ -47,42 +27,27 @@ $(document).ready(function() {
             success: function (response) {
                 // Close the modal
                 $('#bookingModal').modal('hide');
-
-                // Show success message
-                showSuccessAlert('Booking created successfully! Booking ID: ' + response.id);
-
-                // Optionally: Show booking details or redirect to booking details page
-                showBookingDetails(response);
+                Swal.fire({
+                    title: "Booking Successful!",
+                    icon: "success",
+                    draggable: true
+                });
 
                 // Reset the form
                 $('#bookingForm')[0].reset();
             },
             error: function (xhr, status, error) {
                 console.error('Error creating booking:', error);
-                alert('Failed to create booking. Please try again.');
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
             }
         });
     }
 
-    // Function to show success alert
-    function showSuccessAlert(message) {
-        const alertHtml = `
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        `;
-
-        // Insert alert before the content area
-        $('#mainContent').prepend(alertHtml);
-
-        // Auto dismiss after 5 seconds
-        setTimeout(function () {
-            $('.alert').alert('close');
-        }, 5000);
-    }
-
-    // Function to show booking details (you can customize this based on your UI)
     function showBookingDetails(booking) {
         // This is a placeholder function - implement according to your UI needs
         console.log('Booking details:', booking);
