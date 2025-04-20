@@ -6,6 +6,7 @@ import com.example.airplanemanagementsystem.Entity.BookingDetails;
 import com.example.airplanemanagementsystem.Repo.BookingRepository;
 import com.example.airplanemanagementsystem.Service.BookingDetailsService;
 import com.example.airplanemanagementsystem.Service.BookingService;
+import com.example.airplanemanagementsystem.Service.EmailService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class BookingServiceImpl implements BookingService {
         this.bookingRepository = bookingRepository;
         this.bookingDetailsService = bookingDetailsService;
     }
+    @Autowired
+    private EmailService emailService;
 
     @Override
     @Transactional
@@ -40,6 +43,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setFlightClass(bookingRequestDTO.getFlightClass());
         booking.setPaymentMethod(bookingRequestDTO.getPaymentMethod());
         booking.setDescription(bookingRequestDTO.getPackageName());
+        booking.setEmail(bookingRequestDTO.getEmail());
 
         // Generate seat number if not provided
         String seatNumber = bookingRequestDTO.getSeatNumber();
@@ -48,15 +52,18 @@ public class BookingServiceImpl implements BookingService {
         }
         booking.setSeatNumber(seatNumber);
 
-        Booking savedBooking = bookingRepository.save(booking);
+        Booking updatedBooking = bookingRepository.save(booking);
+
+        emailService.sendBookingConfirmation(updatedBooking.getEmail(), updatedBooking.getPassengerName());
+
 
         // Create booking details with calculated price based on class
         BookingDetailsRequestDTO detailsRequestDTO = new BookingDetailsRequestDTO();
-        detailsRequestDTO.setBookingId(savedBooking.getId());
+        detailsRequestDTO.setBookingId(updatedBooking.getId());
 
         // Calculate price based on flight class
         BigDecimal basePrice;
-        switch (savedBooking.getFlightClass()) {
+        switch (updatedBooking.getFlightClass()) {
             case "First":
                 basePrice = new BigDecimal("10000.00");
                 break;
@@ -74,7 +81,7 @@ public class BookingServiceImpl implements BookingService {
         BookingDetailsDTO detailsDTO = bookingDetailsService.createBookingDetails(detailsRequestDTO);
 
         // Create response DTO
-        return createBookingResponseDTO(savedBooking, detailsDTO);
+        return createBookingResponseDTO(updatedBooking, detailsDTO);
     }
 
     @Override
@@ -124,6 +131,8 @@ public class BookingServiceImpl implements BookingService {
         }
 
         Booking updatedBooking = bookingRepository.save(booking);
+        emailService.sendBookingConfirmation(updatedBooking.getEmail(), updatedBooking.getPassengerName());
+
 
         // Update booking details if flight class has changed
         BookingDetailsDTO detailsDTO = bookingDetailsService.calculateBookingPrice(id);

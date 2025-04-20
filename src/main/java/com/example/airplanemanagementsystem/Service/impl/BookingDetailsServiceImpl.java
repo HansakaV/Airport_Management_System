@@ -146,4 +146,13 @@ public class BookingDetailsServiceImpl implements BookingDetailsService {
 
         return dto;
     }
+
+    @Override
+    public BookingDetailsDTO getLatestBookingDetails() {
+        BookingDetails latestBookingDetails = bookingDetailsRepository.findTopByOrderByIdDesc();
+        if (latestBookingDetails == null) {
+            throw new EntityNotFoundException("No booking details found in the system");
+        }
+        return convertToDTO(latestBookingDetails);
+    }
 }

@@ -69,6 +69,8 @@ public class WebSecurityConfig {
                                 "api/v1/bookings/create",
                                 "api/v1/package/delete{id}",
                                 "/api/v1/user/getAll",
+                                "api/v1/payments/create-payment",
+                                "api/v1/booking-details/latest",
                                 "/api/v1/auth/refreshToken",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",

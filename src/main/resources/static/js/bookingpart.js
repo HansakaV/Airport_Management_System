@@ -16,7 +16,11 @@ $(document).ready(function() {
             paymentMethod: $('#paymentMethod').val(),
             seatNumber: $('#seatNumber').val(),
             packageName: $('#packageNameHidden').val(),
+            email: $('#Email').val(),
         };
+
+
+
         console.log('Booking data:', bookingData);
 
         $.ajax({
@@ -25,7 +29,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify(bookingData),
             success: function (response) {
-                // Close the modal
+               /* // Close the modal
                 $('#bookingModal').modal('hide');
                 Swal.fire({
                     title: "Booking Successful!",
@@ -35,6 +39,32 @@ $(document).ready(function() {
 
                 // Reset the form
                 $('#bookingForm')[0].reset();
+            },*/
+                // Close the modal
+                $('#bookingModal').modal('hide');
+
+                // Show success message
+                Swal.fire({
+                    title: "Booking Created!",
+                    text: "Please proceed to payment to confirm your booking.",
+                    icon: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Proceed to Payment",
+                    cancelButtonText: "Pay Later"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Extract package price from the hidden field or response
+                        const packagePrice = $('#packagePriceHidden').val() || 50.00; // Default to 50.00 if not found
+
+                        // Redirect to payment page with booking information
+                        window.location.href = `payment.html?bookingId=${response.bookingId}&package=${bookingData.packageName}&passenger=${bookingData.passengerName}&amount=${packagePrice}`;
+                    } else {
+                        // Reset the form
+                        $('#bookingForm')[0].reset();
+                    }
+                });
             },
             error: function (xhr, status, error) {
                 console.error('Error creating booking:', error);

@@ -11,4 +11,5 @@ public interface BookingDetailsService {
     boolean deleteBookingDetails(Long id);
     BookingDetailsDTO calculateBookingPrice(Long bookingId);
     BookingDetailsDTO updatePaymentStatus(Long id, String paymentStatus);
+    BookingDetailsDTO getLatestBookingDetails();
 }
